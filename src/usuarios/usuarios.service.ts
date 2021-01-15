@@ -38,7 +38,7 @@ export class UsuariosService {
     }
 
      async findByLogin({ username, password }: LoginUsarioDto):Promise<UsuarioDto> {
-        const user = await this.UsuarioRepository.findOne({ where: { username } });
+        const user = await this.UsuarioRepository.findOne({ username });
         //console.log(user); 
         if (!user) {
           throw new HttpException('User not found', HttpStatus.UNAUTHORIZED);
