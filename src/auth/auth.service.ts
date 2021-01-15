@@ -21,7 +21,6 @@ export class AuthService {
         success: true,   
         message: 'user registered',
         };
-        console.log("changana");
         try {
         await this.usersService.createUsuario(userDto);
         } 

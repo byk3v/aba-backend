@@ -1,5 +1,5 @@
 import { getConnectionOptions, getConnection } from 'typeorm';
-import * as bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcrypt';
 import { Logger } from '@nestjs/common';
 
 export const toPromise = <T>(data: T): Promise<T> => {
@@ -10,8 +10,5 @@ export const toPromise = <T>(data: T): Promise<T> => {
 
 
 export const comparePasswords = async (userPassword, currentPassword) => {
-  const prueba = await bcrypt.hash(currentPassword, 10);
-  console.log(prueba);
- // console.log(userPassword);
   return await bcrypt.compare(currentPassword, userPassword);
 };

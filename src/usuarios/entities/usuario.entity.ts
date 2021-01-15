@@ -1,5 +1,5 @@
 import { Role } from "src/role/entities/role.entity";
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { BaseEntity, BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('usuarios')
@@ -10,10 +10,10 @@ export class Usuario{
     @Column({type: 'varchar', length: 30, nullable: false, unique: true})
     username: string;
     
-    @Column({type: 'varchar', length: 30, nullable: false})
+    @Column({type: 'varchar', length: 80, nullable: false})
     password: string;
     
-    @Column({type: 'varchar', length: 30, nullable: false})
+    @Column({type: 'varchar', length: 50, nullable: false})
     email: string;
 
     @Column({type: 'varchar', length: 8, default: "ACTIVE"})

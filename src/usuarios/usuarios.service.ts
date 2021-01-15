@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { getConnection, Repository } from 'typeorm';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { Usuario } from './entities/usuario.entity';
-import  bcrypt from 'bcrypt';
+import  * as bcrypt from 'bcrypt';
 import { UsuarioDto } from './dto/usuarioDto';
 import { toUserDto} from '../utils/mapper'
 import { LoginUsarioDto } from './dto/LoginUsarioDto';
@@ -38,14 +38,12 @@ export class UsuariosService {
     }
 
      async findByLogin({ username, password }: LoginUsarioDto):Promise<UsuarioDto> {
-        const user = await this.UsuarioRepository.findOne({ username });
-        //console.log(user); 
+        const user = await this.UsuarioRepository.findOne({ where: { username } });
         if (!user) {
           throw new HttpException('User not found', HttpStatus.UNAUTHORIZED);
         }
     
         const sonIguales = await comparePasswords(user.password, password);
-        console.log(sonIguales);
     
         if (!sonIguales) {
           throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
@@ -67,12 +65,10 @@ export class UsuariosService {
         if (userInDb) {
             throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);    
         }
-console.log(dto);
         //const roleRepository: RoleRepository = await getConnection().getRepository(Role) 
         //const defaultRole: Role = roleRepository.findOne({where: {nombre: 'RBT'}});
     
         const user: Usuario = await this.UsuarioRepository.create({ username, password, email, });
-        console.log(user);
         //user.roles = [defaultRole];
         await this.UsuarioRepository.save(user);
         return toUserDto(user);
