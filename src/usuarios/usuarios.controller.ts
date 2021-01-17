@@ -1,18 +1,29 @@
-import { Controller, Delete, Get, Post, Put, Body, Param, ParseIntPipe } from '@nestjs/common';
-import {CreateUsuarioDto} from './dto/create-usuario.dto'
+import {
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Put,
+  Body,
+  Param,
+  ParseIntPipe, UseGuards,
+} from '@nestjs/common';
+import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UsuariosService } from './usuarios.service';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('usuarios')
 export class UsuariosController {
   constructor(private readonly UsuarioService: UsuariosService) {}
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   async getUsuarios() {
     const data = await this.UsuarioService.getUsuarios();
     return {
-        message: 'Peticion correcta',
-        data: data
-    }
+      message: 'Peticion correcta',
+      data: data,
+    };
   }
 
   @Get(':id')
@@ -29,12 +40,12 @@ export class UsuariosController {
 
   @Put(':id')
   modificarUsuarios(@Body() usuario: CreateUsuarioDto, @Param('id') id) {
-      return this.UsuarioService.editUsuario(id, usuario);
+    return this.UsuarioService.editUsuario(id, usuario);
   }
 
   @Delete(':id')
   eliminarUsuarios(@Param('id') id) {
-      return this.UsuarioService.deleteUsuario(id);
+    return this.UsuarioService.deleteUsuario(id);
     //  return `eliminando usuario numero ${id}` //alt + 96
   }
 }

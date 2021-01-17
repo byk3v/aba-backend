@@ -1,25 +1,31 @@
-import { Usuario } from "src/usuarios/entities/usuario.entity";
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Usuario } from 'src/usuarios/entities/usuario.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('roles')
-export class Role{
-    @PrimaryGeneratedColumn('increment')
-    id: number;
+export class Role {
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
-    @Column({type: 'varchar', length: 30, nullable: false, unique: true})
-    nombre: string;
-    
-    @Column({type: 'varchar', length: 30, nullable: false})
-    descripcion: string;
+  @Column({ type: 'varchar', length: 30, nullable: false, unique: true })
+  nombre: string;
 
-    @ManyToMany(type=> Usuario, usuario=> usuario.roles)
-    @JoinTable({name: 'user_roles'})
-    users: Usuario[];
-    
-    @Column({type: 'varchar', length: 8, default: "ACTIVE"})
-    status: string;
+  @Column({ type: 'varchar', length: 30, nullable: false })
+  descripcion: string;
 
-    @CreateDateColumn({type: 'timestamp'})
-    createdAt: Date;
+  @ManyToMany((type) => Usuario, (usuario) => usuario.roles)
+  @JoinTable({ name: 'user_roles' })
+  users: Usuario[];
 
+  @Column({ type: 'varchar', length: 8, default: 'ACTIVE' })
+  status: string;
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date;
 }

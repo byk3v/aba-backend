@@ -14,23 +14,20 @@ import { LocalStrategy } from './strategies/local.strategy';
   /*imports:[
     TypeOrmModule.forFeature([AuthRepository])
 ],*/
-imports: [
-  UsuariosModule,
-  PassportModule.register({
-    defaultStrategy: 'jwt',
-    property: 'user',
-    session: false,
-}),
-  JwtModule.register({
-    secret: /*process.env.SECRETKEY || */'ABA-SecretKey', 
-    signOptions: { expiresIn: process.env.EXPIRESIN || '60s',},
-}),
-],
+  imports: [
+    UsuariosModule,
+    PassportModule.register({
+      defaultStrategy: 'jwt',
+      property: 'user',
+      session: false,
+    }),
+    JwtModule.register({
+      secret: /*process.env.SECRETKEY || */ 'ABA-SecretKey',
+      signOptions: { expiresIn: process.env.EXPIRESIN || '60s' },
+    }),
+  ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
-  exports: [
-    PassportModule, 
-    JwtModule
-],
+  exports: [PassportModule, JwtModule],
 })
 export class AuthModule {}

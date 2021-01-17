@@ -9,18 +9,22 @@ import { RoleModule } from './role/role.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [UsuariosModule, TypeOrmModule.forRoot({
-    type: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: '',
-    database: 'aba-bd',
-    entities: [__dirname + './**/**/*entity{.ts,.js}'],
-    autoLoadEntities: true,
-    synchronize: true,
-  }), RoleModule, AuthModule
-],
+  imports: [
+    UsuariosModule,
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'aba-bd',
+      entities: [__dirname + './**/**/*entity{.ts,.js}'],
+      autoLoadEntities: true,
+      synchronize: true,
+    }),
+    RoleModule,
+    AuthModule,
+  ],
   controllers: [AppController, UsuariosController],
   providers: [AppService], //UsuariosService adentro me da bateo
 })

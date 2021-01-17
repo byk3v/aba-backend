@@ -9,16 +9,16 @@ import { JwtPayload } from '../interfaces/payload.interface';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: AuthService) {
     super({
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey:/* process.env.SECRETKEY || */'ABA-SecretKey',
-    });  
-}
-
-async validate(payload: JwtPayload): Promise<UsuarioDto> {
-  const user = await this.authService.validateUser(payload);
-  if (!user) {
-    throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey: /* process.env.SECRETKEY || */ 'ABA-SecretKey',
+    });
   }
-  return user;
-}
+
+  async validate(payload: JwtPayload): Promise<UsuarioDto> {
+    const user = await this.authService.validateUser(payload);
+    if (!user) {
+      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
+    }
+    return user;
+  }
 }
