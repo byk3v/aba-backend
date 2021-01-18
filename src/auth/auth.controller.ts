@@ -7,7 +7,7 @@ import {
   UsePipes,
   Get,
   Req,
-  UseGuards,
+  UseGuards, HttpCode,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateUsuarioDto } from 'src/usuarios/dto/create-usuario.dto';
