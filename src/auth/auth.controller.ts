@@ -7,27 +7,28 @@ import {
   UsePipes,
   Get,
   Req,
-  UseGuards, HttpCode,
-} from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { CreateUsuarioDto } from 'src/usuarios/dto/create-usuario.dto';
-import { LoginUsuarioDto } from 'src/usuarios/dto/loginUsuarioDto';
-import { AuthService } from './auth.service';
-import { LoginStatus } from './interfaces/login-status.interface';
-import { JwtPayload } from './interfaces/payload.interface';
-import { RegistrationStatus } from './interfaces/registration-status.interface';
-import { JwtAuthGuard } from './jwt-auth.guard';
+  UseGuards, HttpCode
+} from "@nestjs/common";
+import { AuthGuard } from "@nestjs/passport";
+import { CreateUsuarioDto } from "src/usuarios/dto/create-usuario.dto";
+import { LoginUsuarioDto } from "src/usuarios/dto/loginUsuarioDto";
+import { AuthService } from "./auth.service";
+import { LoginStatus } from "./interfaces/login-status.interface";
+import { JwtPayload } from "./interfaces/payload.interface";
+import { RegistrationStatus } from "./interfaces/registration-status.interface";
+import { JwtAuthGuard } from "./jwt-auth.guard";
 
-@Controller('auth')
+@Controller("auth")
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {
+  }
 
-  @Post('register')
+  @Post("register")
   public async register(
-    @Body() createUserDto: CreateUsuarioDto,
+    @Body() createUserDto: CreateUsuarioDto
   ): Promise<RegistrationStatus> {
     const result: RegistrationStatus = await this.authService.register(
-      createUserDto,
+      createUserDto
     );
 
     if (!result.success) {
@@ -37,16 +38,25 @@ export class AuthController {
     return result;
   }
 
-  @Post('login')
+  @Post("login")
   public async login(
-    @Body() loginUserDto: LoginUsuarioDto,
+    @Body() loginUserDto: LoginUsuarioDto
   ): Promise<LoginStatus> {
     return await this.authService.login(loginUserDto);
   }
 
-  @Get('currentUser')
+  @Post("refreshToken")
+  public async refresh(
+    @Body() loginUserDto: LoginUsuarioDto
+  ): Promise<LoginStatus> {
+    return await this.authService.refresh(loginUserDto);
+  }
+
+  @Get("currentUser")
   @UseGuards(JwtAuthGuard)
-  public async testAuth(@Req() req: any): Promise<JwtPayload> {
-    return req.user;
+  public async testAuth(@Req() req: any): Promise<{ country: string; address: string; signature: string; unreadCount: number; avatar: string; title: string; userid: string; tags: ({ label: string; key: string } | { label: string; key: string } | { label: string; key: string } | { label: string; key: string } | { label: string; key: string } | { label: string; key: string })[]; notifyCount: number; geographic: { province: { label: string; key: string }; city: { label: string; key: string } }; phone: string; name: string; email: string; username: string; group: string }> {
+    return {
+      ...req.user
+    };
   }
 }
