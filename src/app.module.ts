@@ -17,8 +17,6 @@ connectionOptions = {
   synchronize: true,
   extra: {
     ssl: true,
-    ca: process.env.SSL_CERT,
-    rejectUnauthorized: false,
   },
 };
 if (process.env.DATABASE_URL) {
