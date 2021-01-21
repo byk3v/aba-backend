@@ -5,6 +5,8 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const PORT = process.env.PORT || 3001;
+
   app.enableCors({
     origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -20,6 +22,6 @@ async function bootstrap() {
       }
     ),
   );  npm i class-validator*/
-  await app.listen(process.env.PORT);
+  await app.listen(PORT);
 }
 bootstrap();

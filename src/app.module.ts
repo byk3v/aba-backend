@@ -5,29 +5,41 @@ import { AuthService } from './auth/auth.service';
 import { UsuariosController } from './usuarios/usuarios.controller';
 import { AuthController } from './auth/auth.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsuariosService } from './usuarios/usuarios.service';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { RoleModule } from './role/role.module';
 import { AuthModule } from './auth/auth.module';
 
+let connectionOptions;
+connectionOptions = {
+  type: 'postgres',
+  entities: [__dirname + './**/**/*entity{.ts,.js}'],
+  autoLoadEntities: true,
+  synchronize: true,
+};
+if (process.env.DATABASE_URL) {
+  Object.assign(connectionOptions, { url: process.env.DATABASE_URL });
+} else {
+  connectionOptions = {
+    type: 'mysql',
+    host: 'localhost',
+    port: 3306,
+    username: 'root',
+    password: 'root',
+    database: 'aba-bd',
+    entities: [__dirname + './**/**/*entity{.ts,.js}'],
+    autoLoadEntities: true,
+    synchronize: true,
+  };
+}
+
 @Module({
   imports: [
     UsuariosModule,
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'aba-bd',
-      entities: [__dirname + './**/**/*entity{.ts,.js}'],
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
+    TypeOrmModule.forRoot(connectionOptions),
     RoleModule,
     AuthModule,
   ],
-  controllers: [AppController, UsuariosController,AuthController],
-  providers: [AppService,AuthService], //UsuariosService adentro me da bateo
+  controllers: [AppController, UsuariosController, AuthController],
+  providers: [AppService, AuthService], //UsuariosService adentro me da bateo
 })
 export class AppModule {}
