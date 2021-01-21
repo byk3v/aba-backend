@@ -17,6 +17,7 @@ connectionOptions = {
   synchronize: true,
   extra: {
     ssl: true,
+    ca: process.env.SSL_CERT,
     rejectUnauthorized: false,
   },
 };
