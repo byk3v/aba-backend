@@ -28,7 +28,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 export class JwtRefreshTokenStrategy extends PassportStrategy(Strategy,"jwt-refreshtoken") {
   constructor(private userService:UsuariosService) {
     super({
-      jwtFromRequest: ExtractJwt.fromBodyField('refreshToken'),
+      jwtFromRequest: ExtractJwt.fromBodyField('accessToken'),
       ignoreExpiration: true,
       secretOrKey: /* process.env.SECRETKEY || */ 'ABA-SecretKey',
       passReqToCallback:true
