@@ -45,24 +45,20 @@ export class AuthController {
     return await this.authService.login(loginUserDto);
   }
 
+  @UseGuards(AuthGuard('jwt-refreshtoken'))
   @Post("refreshToken")
-  public async refresh(
-    @Body() loginUserDto: LoginUsuarioDto
-  ): Promise<LoginStatus> {
-    return await this.authService.login(loginUserDto);
+  async refreshToken(@Req() req){
+    return await this.authService.login(req.user);
   }
 
   @Get("currentUser")
   @UseGuards(JwtAuthGuard)
-  public async testAuth(@Req() req: any): Promise<{ country: string; address: string; signature: string; unreadCount: number; avatar: string; title: string; userid: string; notifyCount: number; geographic: { province: { label: string; key: string }; city: { label: string; key: string } }; phone: string; name: string; email: string; username: string; group: string }> {
+  public async testAuth(@Req() req: any): Promise<{ email: string; username: string; id: number }> {
     return {
-      ...req.user
+      id:	req.user.id,
+      username:	req.user.username,
+      email:	req.user.email
     };
   }
 
-  @UseGuards(AuthGuard('jwt-refreshtoken'))
-  @Post('auth/refreshtoken')
-  async refreshToken(@Req() req){
-    return await this.authService.login(req.user);
-  }
 }

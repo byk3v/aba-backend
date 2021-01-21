@@ -58,7 +58,7 @@ export class AuthService {
     // let expiresIn = process.env.EXPIRESIN || "5m";
     await this.usersService.saveUpdateRefreshToken(refreshToken, id, expiresIn);
     return {
-      expiresIn: expiresIn,
+      refreshTokenExpires: expiresIn,
       refreshToken
     };
   }
