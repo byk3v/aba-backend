@@ -28,6 +28,12 @@ export class Usuario {
   @Column({ type: 'varchar', length: 8, default: 'ACTIVE' })
   status: string;
 
+  @Column()
+  refreshtoken:string;
+
+  @Column()
+  refreshtokenExpires:string;
+
   @ManyToMany((type) => Role, (rol) => rol.users)
   //@JoinTable({name: 'user_roles'})
   roles: Role[];

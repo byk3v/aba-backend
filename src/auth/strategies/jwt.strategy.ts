@@ -4,6 +4,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { UsuarioDto } from 'src/usuarios/dto/usuarioDto';
 import { AuthService } from '../auth.service';
 import { JwtPayload } from '../interfaces/payload.interface';
+import { UsuariosService } from '../../usuarios/usuarios.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -20,5 +21,32 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
     }
     return user;
+  }
+}
+
+@Injectable()
+export class JwtRefreshTokenStrategy extends PassportStrategy(Strategy,"jwt-refreshtoken") {
+  constructor(private userService:UsuariosService) {
+    super({
+      jwtFromRequest: ExtractJwt.fromBodyField('accessToken'),
+      ignoreExpiration: true,
+      secretOrKey: /* process.env.SECRETKEY || */ 'ABA-SecretKey',
+      passReqToCallback:true
+    });
+  }
+
+  async validate(req,payload: any) {
+
+    var user = await this.userService.findOne(payload.username);
+    if(!user){
+      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
+    }
+    if(req.body.refreshToken != (await user).refreshtoken){
+      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
+    }
+    if( new Date() > new Date((await user).refreshtokenExpires)){
+      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
+    }
+    return { id: payload.sub, username: payload.username };
   }
 }

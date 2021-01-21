@@ -10,4 +10,8 @@ export class UsuarioDto {
   @IsNotEmpty()
   @IsEmail()
   email: string;
+
+  refreshtoken: string;
+
+  refreshtokenExpires: string;
 }

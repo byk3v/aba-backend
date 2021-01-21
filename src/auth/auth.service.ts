@@ -8,24 +8,27 @@ import { LoginStatus } from "./interfaces/login-status.interface";
 import { JwtPayload } from "./interfaces/payload.interface";
 import { UsuarioDto } from "src/usuarios/dto/usuarioDto";
 
+const randtoken = require("rand-token");
+
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersService: UsuariosService,
-    private readonly jwtService: JwtService,
-  ) {}
+    private readonly jwtService: JwtService
+  ) {
+  }
 
   async register(userDto: CreateUsuarioDto): Promise<RegistrationStatus> {
     let status: RegistrationStatus = {
       success: true,
-      message: 'user registered',
+      message: "user registered"
     };
     try {
       await this.usersService.createUsuario(userDto);
     } catch (err) {
       status = {
         success: false,
-        message: err,
+        message: err
       };
     }
     return status;
@@ -37,19 +40,26 @@ export class AuthService {
 
     // generate and sign token
     const token = this._createToken(user);
+    const refreshToken = await this._generateRefreshToken(user);
 
+    // @ts-ignore
     return {
       username: user.username,
-      ...token
+      ...token,
+      ...refreshToken
     };
   }
 
-  async refresh(loginUserDto: LoginUsuarioDto): Promise<LoginStatus> {
-    const user = await this.usersService.findByLogin(loginUserDto);
-    const token = this._refreshToken(user);
+
+  private async _generateRefreshToken({ username, id }: UsuarioDto): Promise<any> {
+    var refreshToken = randtoken.generate(16);
+    let expiresIn = new Date();
+    expiresIn.setDate(expiresIn.getDate() + 1);// 1 día
+    // let expiresIn = process.env.EXPIRESIN || "5m";
+    await this.usersService.saveUpdateRefreshToken(refreshToken, id, expiresIn);
     return {
-      username: user.username,
-      ...token
+      expiresIn: expiresIn,
+      refreshToken
     };
   }
 
@@ -57,24 +67,16 @@ export class AuthService {
     const user: JwtPayload = { username };
     const accessToken = this.jwtService.sign(user);
     return {
-      expiresIn: process.env.EXPIRESIN || '60s',
-      accessToken,
+      expiresIn: process.env.EXPIRESIN || "60s",
+      accessToken
     };
   }
 
-  private _refreshToken({ username }: UsuarioDto): any {
-    const user: JwtPayload = { username };
-    const accessToken = this.jwtService.sign(user);
-    return {
-      expiresIn: process.env.EXPIRESIN || '5m',
-      accessToken,
-    };
-  }
 
   async validateUser(payload: JwtPayload): Promise<UsuarioDto> {
     const user = await this.usersService.findByPayload(payload);
     if (!user) {
-      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
+      throw new HttpException("Invalid token", HttpStatus.UNAUTHORIZED);
     }
     return user;
   }

@@ -40,6 +40,10 @@ export class UsuariosService {
     return toUserDto(user);
   }
 
+  async saveUpdateRefreshToken(refreshToken:string, id:string, refreshtokenExpires){
+    await this.UsuarioRepository.update(id,{refreshtoken:refreshToken, refreshtokenExpires});
+  }
+
   async findByLogin({
     username,
     password,
