@@ -15,6 +15,9 @@ connectionOptions = {
   entities: [__dirname + './**/**/*entity{.ts,.js}'],
   autoLoadEntities: true,
   synchronize: true,
+  extra: {
+    ssl: true,
+  },
 };
 if (process.env.DATABASE_URL) {
   Object.assign(connectionOptions, { url: process.env.DATABASE_URL });
