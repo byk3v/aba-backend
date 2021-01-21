@@ -50,6 +50,18 @@ export class AuthService {
     };
   }
 
+  async refresh(usuarioDto: UsuarioDto): Promise<any> {
+    // generate and sign token
+    const token = this._createToken(usuarioDto);
+    const refreshToken = await this._generateRefreshToken(usuarioDto);
+
+    // @ts-ignore
+    return {
+      ...token,
+      ...refreshToken
+    };
+  }
+
 
   private async _generateRefreshToken({ username, id }: UsuarioDto): Promise<any> {
     var refreshToken = randtoken.generate(16);
@@ -63,8 +75,8 @@ export class AuthService {
     };
   }
 
-  private _createToken({ username }: UsuarioDto): any {
-    const user: JwtPayload = { username };
+  private _createToken({ username,id }: UsuarioDto): any {
+    const user: JwtPayload = { username,id };
     const accessToken = this.jwtService.sign(user);
     return {
       expiresIn: process.env.EXPIRESIN || "60s",
