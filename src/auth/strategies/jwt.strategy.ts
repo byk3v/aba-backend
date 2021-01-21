@@ -39,13 +39,13 @@ export class JwtRefreshTokenStrategy extends PassportStrategy(Strategy,"jwt-refr
 
     var user = await this.userService.findOne(payload.username);
     if(!user){
-      throw new HttpException('Invalid token', HttpStatus.FORBIDDEN);
+      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
     }
     if(req.body.refreshToken != (await user).refreshtoken){
-      throw new HttpException('Invalid token', HttpStatus.AMBIGUOUS);
+      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
     }
     if( new Date() > new Date((await user).refreshtokenExpires)){
-      throw new HttpException('Invalid token', HttpStatus.CONFLICT);
+      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
     }
     return { id: payload.sub, username: payload.username };
   }
