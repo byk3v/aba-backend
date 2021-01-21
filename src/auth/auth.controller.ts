@@ -45,11 +45,11 @@ export class AuthController {
     return await this.authService.login(loginUserDto);
   }
 
-  @UseGuards(AuthGuard('jwt-refreshtoken'))
-  @Post("refreshToken")
-  async refreshToken(@Req() req){
-    return await this.authService.login(req.user);
-  }
+  // @UseGuards(AuthGuard('jwt-refreshtoken'))
+  // @Post("refreshToken")
+  // async refreshToken(@Req() req){
+  //   return await this.authService.login(req.user);
+  // }
 
   @Get("currentUser")
   @UseGuards(JwtAuthGuard)
