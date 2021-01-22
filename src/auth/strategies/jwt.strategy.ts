@@ -12,15 +12,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: /* process.env.SECRETKEY || */ "ABA-SecretKey",
-      ignoreExpiration: true,
+      // ignoreExpiration: true,
     });
   }
 
   async validate(payload: JwtPayload): Promise<UsuarioDto> {
-    console.log('llego aqui access')
     const user = await this.authService.validateUser(payload);
     if (!user) {
-      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
+      throw new HttpException("Invalid token", HttpStatus.UNAUTHORIZED);
     }
     return user;
   }
@@ -30,7 +29,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 export class JwtRefreshTokenStrategy extends PassportStrategy(Strategy, "jwt-refreshtoken") {
   constructor(private userService: UsuariosService) {
     super({
-      jwtFromRequest: ExtractJwt.fromBodyField("accessToken"),
+      jwtFromRequest: ExtractJwt.fromBodyField('accessToken'),
       ignoreExpiration: true,
       secretOrKey: /* process.env.SECRETKEY || */ "ABA-SecretKey",
       passReqToCallback: true
@@ -38,16 +37,15 @@ export class JwtRefreshTokenStrategy extends PassportStrategy(Strategy, "jwt-ref
   }
 
   async validate(req, payload: any) {
-    console.log('llego aqui refresh')
     var user = await this.userService.findOne(payload.id);
     if (!user) {
-      throw new HttpException("Invalid token", HttpStatus.UNAUTHORIZED);
+      throw new HttpException("Invalid token: usuario incorrecto", HttpStatus.UNAUTHORIZED);
     }
     if (req.body.refreshToken != (await user).refreshtoken) {
-      throw new HttpException("Invalid token", HttpStatus.UNAUTHORIZED);
+      throw new HttpException("Invalid token: refreshToken incorrecto", HttpStatus.UNAUTHORIZED);
     }
     if (new Date() > new Date((await user).refreshtokenExpires)) {
-      throw new HttpException("Invalid token", HttpStatus.UNAUTHORIZED);
+      throw new HttpException("Invalid token: refreshToken expiró", HttpStatus.UNAUTHORIZED);
     }
 
     return { username: payload.username, id: payload.id };

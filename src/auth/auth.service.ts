@@ -57,8 +57,10 @@ export class AuthService {
 
     // @ts-ignore
     return {
+      ...usuarioDto,
       ...token,
-      ...refreshToken
+      ...refreshToken,
+      status:201
     };
   }
 
