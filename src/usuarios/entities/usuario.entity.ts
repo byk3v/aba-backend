@@ -1,11 +1,13 @@
 import { Role } from 'src/role/entities/role.entity';
 import * as bcrypt from 'bcrypt';
 import {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   BaseEntity,
   BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
@@ -28,12 +30,13 @@ export class Usuario {
   @Column({ type: 'varchar', length: 8, default: 'ACTIVE' })
   status: string;
 
-  @Column()
-  refreshtoken:string;
+  @Column({ default: '' })
+  refreshtoken: string;
 
-  @Column()
-  refreshtokenExpires:string;
+  @Column({ default: '' })
+  refreshtokenExpires: string;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @ManyToMany((type) => Role, (rol) => rol.users)
   //@JoinTable({name: 'user_roles'})
   roles: Role[];
