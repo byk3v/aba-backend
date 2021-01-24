@@ -23,11 +23,11 @@ if (process.env.DATABASE_URL) {
   Object.assign(connectionOptions, { url: process.env.DATABASE_URL });
 } else {
   connectionOptions = {
-    type: 'mysql',
+    type: 'postgres',
     host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: 'root',
+    port: 5432,
+    username: 'postgres',
+    password: 'postgres',
     database: 'aba-bd',
     entities: [__dirname + './**/**/*entity{.ts,.js}'],
     autoLoadEntities: true,
