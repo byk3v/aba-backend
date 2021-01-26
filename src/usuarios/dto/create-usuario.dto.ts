@@ -8,4 +8,6 @@ export class CreateUsuarioDto {
 
   @IsEmail()
   email: string;
+
+  roles: number[];
 }

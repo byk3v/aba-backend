@@ -10,6 +10,7 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { JwtRefreshTokenStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
+import { RoleModule } from "../role/role.module";
 
 @Module({
   /*imports:[
@@ -22,13 +23,14 @@ import { LocalStrategy } from './strategies/local.strategy';
       property: 'user',
       session: false,
     }),
+    RoleModule,
     JwtModule.register({
       secret: /*process.env.SECRETKEY || */ 'ABA-SecretKey',
       signOptions: { expiresIn: process.env.EXPIRESIN || '60s' },
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy,JwtRefreshTokenStrategy],
+  providers: [AuthService, JwtStrategy, JwtRefreshTokenStrategy],
   exports: [PassportModule, JwtModule],
 })
 export class AuthModule {}

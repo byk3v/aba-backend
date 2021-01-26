@@ -40,8 +40,15 @@ export class UsuariosService {
     return toUserDto(user);
   }
 
-  async saveUpdateRefreshToken(refreshToken:string, id:string, refreshtokenExpires){
-    await this.UsuarioRepository.update(id,{refreshtoken:refreshToken, refreshtokenExpires});
+  async saveUpdateRefreshToken(
+    refreshToken: string,
+    id: string,
+    refreshtokenExpires,
+  ) {
+    await this.UsuarioRepository.update(id, {
+      refreshtoken: refreshToken,
+      refreshtokenExpires,
+    });
   }
 
   async findByLogin({
@@ -69,8 +76,8 @@ export class UsuariosService {
   }
 
   async createUsuario(dto: CreateUsuarioDto): Promise<UsuarioDto> {
-    const { username, password, email } = dto;
-
+    const { username, password, email, roles } = dto;
+    const rolesArray: Role[] = [];
     const userInDb = await this.UsuarioRepository.findOne({
       where: { username },
     });
@@ -78,15 +85,19 @@ export class UsuariosService {
     if (userInDb) {
       throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
     }
-    //const roleRepository: RoleRepository = await getConnection().getRepository(Role)
-    //const defaultRole: Role = roleRepository.findOne({where: {nombre: 'RBT'}});
-
     const user: Usuario = await this.UsuarioRepository.create({
       username,
       password,
       email,
     });
-    //user.roles = [defaultRole];
+
+    if (roles.length > 0) {
+      const roleRepository: RoleRepository = await getConnection().getRepository(
+        Role,
+      );
+
+      user.roles = await roleRepository.findByIds(roles);
+    }
     await this.UsuarioRepository.save(user);
     return toUserDto(user);
   }

@@ -15,10 +15,15 @@ import { LoginStatus } from './interfaces/login-status.interface';
 import { RegistrationStatus } from './interfaces/registration-status.interface';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { AuthGuard } from '@nestjs/passport';
+import { RoleService } from '../role/role.service';
+import { Role } from '../role/entities/role.entity';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly roleService: RoleService,
+  ) {}
 
   @Post('register')
   public async register(
@@ -46,11 +51,18 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   public async testAuth(
     @Req() req: any,
-  ): Promise<{ email: string; username: string; id: number }> {
+  ): Promise<{
+    roles: Role[];
+    id: number;
+    email: string;
+    username: string;
+  }> {
+    const roles = await this.roleService.findRolesbyUser(req.user.id);
     return {
       id: req.user.id,
       username: req.user.username,
       email: req.user.email,
+      roles: roles,
     };
   }
 

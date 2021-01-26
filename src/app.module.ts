@@ -8,6 +8,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { RoleModule } from './role/role.module';
 import { AuthModule } from './auth/auth.module';
+import { RoleService } from './role/role.service';
+import { UsuariosService } from './usuarios/usuarios.service';
+import { RoleController } from './role/role.controller';
 
 let connectionOptions;
 connectionOptions = {
@@ -38,11 +41,11 @@ if (process.env.DATABASE_URL) {
 @Module({
   imports: [
     UsuariosModule,
-    TypeOrmModule.forRoot(connectionOptions),
     RoleModule,
     AuthModule,
+    TypeOrmModule.forRoot(connectionOptions),
   ],
-  controllers: [AppController, UsuariosController, AuthController],
+  controllers: [AppController, AuthController],
   providers: [AppService, AuthService], //UsuariosService adentro me da bateo
 })
 export class AppModule {}
