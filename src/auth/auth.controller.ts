@@ -22,7 +22,6 @@ import { Role } from '../role/entities/role.entity';
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly roleService: RoleService,
   ) {}
 
   @Post('register')
@@ -52,17 +51,14 @@ export class AuthController {
   public async testAuth(
     @Req() req: any,
   ): Promise<{
-    roles: Role[];
     id: number;
     email: string;
     username: string;
   }> {
-    const roles = await this.roleService.findRolesbyUser(req.user.id);
     return {
       id: req.user.id,
       username: req.user.username,
       email: req.user.email,
-      roles: roles,
     };
   }
 

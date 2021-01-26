@@ -28,7 +28,7 @@ export class RoleService {
     return role;
   }
 
-  async findRolesbyUser(userId: number): Promise<Role[]> {
+  async findRolesbyUser(userId: string): Promise<RolDto[]> {
     // return await this.RoleRepository.find({
     //   relations: ['users'],
     //   where: { users: userId },
@@ -37,7 +37,7 @@ export class RoleService {
     return await getConnection()
       .getRepository(Role)
       .createQueryBuilder('roles')
-      // .select('roles.nombre')
+      .select('roles.nombre')
       .leftJoin('roles.users', 'usuarios')
       .where('usuarios.id = :userId', { userId })
       .getMany();

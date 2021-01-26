@@ -7,6 +7,7 @@ import { LoginUsuarioDto } from 'src/usuarios/dto/loginUsuarioDto';
 import { LoginStatus } from './interfaces/login-status.interface';
 import { JwtPayload } from './interfaces/payload.interface';
 import { UsuarioDto } from 'src/usuarios/dto/usuarioDto';
+import { RoleService } from '../role/role.service';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const randtoken = require('rand-token');
@@ -16,6 +17,7 @@ export class AuthService {
   constructor(
     private readonly usersService: UsuariosService,
     private readonly jwtService: JwtService,
+    private readonly roleService: RoleService,
   ) {}
 
   async register(userDto: CreateUsuarioDto): Promise<RegistrationStatus> {
@@ -42,11 +44,14 @@ export class AuthService {
     const token = this._createToken(user);
     const refreshToken = await this._generateRefreshToken(user);
 
+    const roles = await this.roleService.findRolesbyUser(user.id);
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     return {
       username: user.username,
       ...token,
       ...refreshToken,
+      currentAuthority: roles[0].nombre, // Temporal, hasta definirse el manejo de roles en el frontend
     };
   }
 
