@@ -14,6 +14,7 @@ import { AuthService } from './auth.service';
 import { LoginStatus } from './interfaces/login-status.interface';
 import { RegistrationStatus } from './interfaces/registration-status.interface';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
@@ -51,5 +52,11 @@ export class AuthController {
       username: req.user.username,
       email: req.user.email,
     };
+  }
+
+  @UseGuards(AuthGuard('jwt-refreshtoken'))
+  @Post('auth/refreshToken')
+  async refreshToken(@Req() req) {
+    return await this.authService.refresh(req.user);
   }
 }
