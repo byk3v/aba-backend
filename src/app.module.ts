@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { RoleService } from './role/role.service';
 import { UsuariosService } from './usuarios/usuarios.service';
 import { RoleController } from './role/role.controller';
+import { DiagnosisModule } from './master-tables/diagnosis/diagnosis.module';
 
 let connectionOptions;
 connectionOptions = {
@@ -44,6 +45,7 @@ if (process.env.DATABASE_URL) {
     RoleModule,
     AuthModule,
     TypeOrmModule.forRoot(connectionOptions),
+    DiagnosisModule,
   ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService], //UsuariosService adentro me da bateo
