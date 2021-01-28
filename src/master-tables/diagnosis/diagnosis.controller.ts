@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
@@ -20,8 +21,10 @@ export class DiagnosisController {
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  async getAllDiagnosis() {
-    const data = await this.DiagnosisService.getDiagnosis();
+  async getAllDiagnosis(@Query() query) {
+    const code = query.code ? query.code : '';
+    const description = query.description ? query.description : '';
+    const data = await this.DiagnosisService.getDiagnosis(code, description);
     return {
       message: 'Peticion correcta',
       data: data,
@@ -38,9 +41,9 @@ export class DiagnosisController {
     return this.DiagnosisService.createDiagnosis(diagnosis);
   }
 
-  @Put(':id')
-  modificarDiagnosis(@Body() diagnosis: CreateDiagnosisDto, @Param('id') id) {
-    return this.DiagnosisService.editDiagnosis(id, diagnosis);
+  @Put()
+  modificarDiagnosis(@Body() dto: DiagnosisDto) {
+    return this.DiagnosisService.editDiagnosis(dto);
   }
 
   @Delete()

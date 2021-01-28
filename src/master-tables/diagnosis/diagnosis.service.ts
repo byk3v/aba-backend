@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getConnection, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Diagnosis } from './entities/diagnosis.entity';
 import { CreateDiagnosisDto } from './dto/create-diagnosis.dto';
 import { DiagnosisDto } from './dto/diagnosisDto';
@@ -18,8 +18,19 @@ export class DiagnosisService {
     private readonly DiagnosisRepository: Repository<Diagnosis>,
   ) {}
 
-  async getDiagnosis(): Promise<Diagnosis[]> {
-    return await this.DiagnosisRepository.find();
+  async getDiagnosis(
+    code?: number[],
+    description?: string,
+  ): Promise<Diagnosis[]> {
+    if (code && description) {
+      return await this.DiagnosisRepository.find({
+        where: { code, description },
+      });
+    } else if (code || description) {
+      if (code) return await this.DiagnosisRepository.find({ where: { code } });
+      else
+        return await this.DiagnosisRepository.find({ where: { description } });
+    } else return await this.DiagnosisRepository.find();
   }
 
   async getbyId(id: number) {
@@ -50,8 +61,8 @@ export class DiagnosisService {
     return toDiagnosisDto(diagnosis);
   }
 
-  async editDiagnosis(id: number, dto: CreateDiagnosisDto) {
-    const diagnosis = await this.DiagnosisRepository.findOne(id);
+  async editDiagnosis(dto: DiagnosisDto) {
+    const diagnosis = await this.DiagnosisRepository.findOne(dto.id);
     if (!diagnosis) throw new NotFoundException(`Diagnosis doesn't exist`);
 
     const diagnosisUpdated = Object.assign(diagnosis, dto);
