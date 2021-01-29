@@ -2,6 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as dotenv from 'dotenv';
 import { AppModule } from './app.module';
+import {initSwagger} from './app.swagger'
 
 dotenv.config();
 const PORT = process.env.PORT || 3001; // asi funciona heroku
@@ -15,13 +16,13 @@ async function bootstrap() {
     credentials: true,
   });
 
-  /*app.useGlobalPipes(
+  app.useGlobalPipes(
     new ValidationPipe(
       {
         whitelist: true,
       }
     ),
-  );  npm i class-validator*/
+  ); 
   await app.listen(PORT);
 }
 bootstrap();
