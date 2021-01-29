@@ -1,13 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { UsuariosService } from '../usuarios/usuarios.service';
+import { UsuariosService } from '../services';
 import { JwtService } from '@nestjs/jwt';
-import { CreateUsuarioDto } from 'src/usuarios/dto/create-usuario.dto';
+import { CreateUsuarioDto } from 'src/dto/create-usuario.dto';
 import { RegistrationStatus } from './interfaces/registration-status.interface';
-import { LoginUsuarioDto } from 'src/usuarios/dto/loginUsuarioDto';
+import { LoginUsuarioDto } from 'src/dto/loginUsuarioDto';
 import { LoginStatus } from './interfaces/login-status.interface';
 import { JwtPayload } from './interfaces/payload.interface';
-import { UsuarioDto } from 'src/usuarios/dto/usuarioDto';
-import { RoleService } from '../role/role.service';
+import { UsuarioDto } from 'src/dto/usuarioDto';
+import { RoleService } from '../services';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const randtoken = require('rand-token');

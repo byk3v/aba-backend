@@ -8,8 +8,8 @@ import {
   Param,
   ParseIntPipe, UseGuards,
 } from '@nestjs/common';
-import { CreateUsuarioDto } from './dto/create-usuario.dto';
-import { UsuariosService } from './usuarios.service';
+import { CreateUsuarioDto } from '../dto/create-usuario.dto';
+import { UsuariosService } from '../services/usuarios.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('usuarios')

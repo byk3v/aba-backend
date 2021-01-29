@@ -2,16 +2,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
-import { UsuariosController } from './usuarios/usuarios.controller';
-import { AuthController } from './auth/auth.controller';
+import { AuthController } from './controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsuariosModule } from './usuarios/usuarios.module';
-import { RoleModule } from './role/role.module';
+import { UsuariosModule, RoleModule, DiagnosisModule } from './modules';
 import { AuthModule } from './auth/auth.module';
-import { RoleService } from './role/role.service';
-import { UsuariosService } from './usuarios/usuarios.service';
-import { RoleController } from './role/role.controller';
-import { DiagnosisModule } from './master-tables/diagnosis/diagnosis.module';
 
 let connectionOptions;
 connectionOptions = {

@@ -9,9 +9,9 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { RoleService } from './role.service';
+import { RoleService } from '../services/role.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { CreateRolDto } from './dto/create-rol.dto';
+import { CreateRolDto } from '../dto/create-rol.dto';
 
 @Controller('roles')
 export class RoleController {

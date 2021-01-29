@@ -1,4 +1,4 @@
-import { Role } from 'src/role/entities/role.entity';
+import { Role } from 'src/domain/entity/role.entity';
 import * as bcrypt from 'bcrypt';
 import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

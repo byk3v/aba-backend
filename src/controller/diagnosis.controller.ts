@@ -10,10 +10,10 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
-import { DiagnosisService } from './diagnosis.service';
-import { CreateDiagnosisDto } from './dto/create-diagnosis.dto';
-import { DiagnosisDto } from './dto/diagnosisDto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { DiagnosisService } from '../services';
+import { CreateDiagnosisDto } from '../dto/create-diagnosis.dto';
+import { DiagnosisDto } from '../dto/diagnosisDto';
 
 @Controller('diagnosis')
 export class DiagnosisController {

@@ -8,21 +8,19 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { CreateUsuarioDto } from 'src/usuarios/dto/create-usuario.dto';
-import { LoginUsuarioDto } from 'src/usuarios/dto/loginUsuarioDto';
-import { AuthService } from './auth.service';
-import { LoginStatus } from './interfaces/login-status.interface';
-import { RegistrationStatus } from './interfaces/registration-status.interface';
-import { JwtAuthGuard } from './jwt-auth.guard';
+import { CreateUsuarioDto } from 'src/dto/create-usuario.dto';
+import { LoginUsuarioDto } from 'src/dto/loginUsuarioDto';
+import { AuthService } from '../auth/auth.service';
+import { LoginStatus } from '../auth/interfaces/login-status.interface';
+import { RegistrationStatus } from '../auth/interfaces/registration-status.interface';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { AuthGuard } from '@nestjs/passport';
-import { RoleService } from '../role/role.service';
-import { Role } from '../role/entities/role.entity';
+import { RoleService } from '../services/role.service';
+import { Role } from '../domain/entity/role.entity';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Post('register')
   public async register(

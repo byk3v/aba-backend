@@ -1,4 +1,4 @@
-import { UsuarioDto } from '../../usuarios/dto/usuarioDto';
+import { UsuarioDto } from '../../dto/usuarioDto';
 
 export interface LoginStatus {
   username: string;

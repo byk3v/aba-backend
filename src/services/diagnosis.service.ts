@@ -6,10 +6,10 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Diagnosis } from './entities/diagnosis.entity';
-import { CreateDiagnosisDto } from './dto/create-diagnosis.dto';
-import { DiagnosisDto } from './dto/diagnosisDto';
-import { toDiagnosisDto } from '../../utils/mapper';
+import { Diagnosis } from '../domain/entity';
+import { CreateDiagnosisDto } from '../dto/create-diagnosis.dto';
+import { DiagnosisDto } from '../dto/diagnosisDto';
+import { toDiagnosisDto } from '../utils/mapper';
 
 @Injectable()
 export class DiagnosisService {

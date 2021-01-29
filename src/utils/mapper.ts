@@ -1,10 +1,10 @@
-import { UsuarioDto } from 'src/usuarios/dto/usuarioDto';
-import { Usuario } from '../usuarios/entities/usuario.entity';
+import { UsuarioDto } from 'src/dto/usuarioDto';
+import { Usuario } from '../domain/entity/usuario.entity';
 
-import { RolDto } from 'src/role/dto/rolDto';
-import { Role } from '../role/entities/role.entity';
-import { Diagnosis } from '../master-tables/diagnosis/entities/diagnosis.entity';
-import { DiagnosisDto } from '../master-tables/diagnosis/dto/diagnosisDto';
+import { RolDto } from 'src/dto/rolDto';
+import { Role } from '../domain/entity/role.entity';
+import { Diagnosis } from '../domain/entity/diagnosis.entity';
+import { DiagnosisDto } from '../dto/diagnosisDto';
 
 export const toUserDto = (data: Usuario): UsuarioDto => {
   const { id, username, email, refreshtoken, refreshtokenExpires } = data;

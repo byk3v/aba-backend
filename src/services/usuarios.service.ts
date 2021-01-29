@@ -6,15 +6,14 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { getConnection, Repository } from 'typeorm';
-import { CreateUsuarioDto } from './dto/create-usuario.dto';
-import { Usuario } from './entities/usuario.entity';
-import * as bcrypt from 'bcrypt';
-import { UsuarioDto } from './dto/usuarioDto';
+import { CreateUsuarioDto } from '../dto/create-usuario.dto';
+import { Usuario } from '../domain/entity';
+import { UsuarioDto } from '../dto/usuarioDto';
 import { toUserDto } from '../utils/mapper';
-import { LoginUsuarioDto } from './dto/loginUsuarioDto';
-import { comparePasswords } from 'src/utils/utils';
-import { Role } from 'src/role/entities/role.entity';
-import { RoleRepository } from '../role/role.repository';
+import { LoginUsuarioDto } from '../dto/loginUsuarioDto';
+import { comparePasswords } from '../utils/utils';
+import { Role } from '../domain/entity';
+import { RoleRepository } from '../domain/repository';
 
 @Injectable()
 export class UsuariosService {
