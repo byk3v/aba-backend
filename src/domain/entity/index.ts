@@ -5,3 +5,4 @@ export * from './behaviorAnalisysCodes.entity';
 export * from './behaviorProblem.entity';
 export * from './replacementProgram.entity';
 export * from './client.entity';
+export * from './caregiversType.entity'

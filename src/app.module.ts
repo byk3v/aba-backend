@@ -11,7 +11,8 @@ import {
   BehaviorAnalysisCodesModule,
   BehaviorProblemsModule,
   ReplacementProgramModule,
-  ClientsModule
+  ClientsModule,
+  CaregiverTypesModule
 } from './modules';
 import { AuthModule } from './auth/auth.module';
 
@@ -67,6 +68,7 @@ if (process.env.DATABASE_URL) {
     ReplacementProgramModule,
     BehaviorAnalysisCodesModule,
     ClientsModule,
+    CaregiverTypesModule
   ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService], //UserService adentro me da bateo
