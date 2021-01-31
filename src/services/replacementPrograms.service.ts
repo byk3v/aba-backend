@@ -1,10 +1,17 @@
-import {HttpException, HttpStatus,Injectable,NotFoundException,} from '@nestjs/common';
-  import { InjectRepository } from '@nestjs/typeorm';
-  import { Repository } from 'typeorm';
-  import { ReplacementProgram } from '../domain/entity';
-  import { CreateReplacementProgramDto } from '../dto/create-replacementPrograms.dto';
-  import { ReplacementProgramDto } from '../dto/replacementPrograms.dto';
-  import { toReplacementProgramDto } from '../utils/mapper';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { ReplacementProgram } from '../domain/entity';
+import {
+  ReplacementProgramRead,
+  ReplacementProgramDto,
+} from '../dto/replacementPrograms.dto';
+import { toReplacementProgramDto } from '../utils/mapper';
 
 @Injectable()
 export class ReplacementProgramService {
@@ -13,26 +20,36 @@ export class ReplacementProgramService {
     private readonly ReplacementProgramRepository: Repository<ReplacementProgram>,
   ) {}
 
-  async getReplacementProgram(description?: string, active?: string): Promise<ReplacementProgram[]> {
+  async getReplacementProgram(
+    description?: string,
+    active?: string,
+  ): Promise<ReplacementProgram[]> {
     if (description && active) {
       return await this.ReplacementProgramRepository.find({
-        where: { description, active},
+        where: { description, active },
       });
-    } 
-    else if (description || active) {
-      if (active) return await this.ReplacementProgramRepository.find({ where: { active } });
+    } else if (description || active) {
+      if (active)
+        return await this.ReplacementProgramRepository.find({
+          where: { active },
+        });
       else
-        return await this.ReplacementProgramRepository.find({ where: { description } });
+        return await this.ReplacementProgramRepository.find({
+          where: { description },
+        });
     } else return await this.ReplacementProgramRepository.find();
   }
 
   async getbyId(id: number) {
     const replacemetnP = await this.ReplacementProgramRepository.findOne(id);
-    if (!replacemetnP) throw new NotFoundException(`Replacement Program doesn't exist`);
+    if (!replacemetnP)
+      throw new NotFoundException(`Replacement Program doesn't exist`);
     return replacemetnP;
   }
 
-  async createReplacementPrograms(dto: CreateReplacementProgramDto): Promise<ReplacementProgramDto> {
+  async createReplacementPrograms(
+    dto: ReplacementProgramDto,
+  ): Promise<ReplacementProgramRead> {
     const { description, active } = dto;
 
     const replacementPInDb = await this.ReplacementProgramRepository.findOne({
@@ -46,14 +63,17 @@ export class ReplacementProgramService {
       );
     }
 
-    const replaceP: ReplacementProgram = await this.ReplacementProgramRepository.create({description, active});
+    const replaceP: ReplacementProgram = await this.ReplacementProgramRepository.create(
+      { description, active },
+    );
     await this.ReplacementProgramRepository.save(replaceP);
     return toReplacementProgramDto(replaceP);
   }
 
-  async editReplacementProgram(dto: ReplacementProgramDto) {
+  async editReplacementProgram(dto: ReplacementProgramRead) {
     const replaceP = await this.ReplacementProgramRepository.findOne(dto.id);
-    if (!replaceP) throw new NotFoundException(`Replacement Program doesn't exist`);
+    if (!replaceP)
+      throw new NotFoundException(`Replacement Program doesn't exist`);
 
     const replacementUpdated = Object.assign(replaceP, dto);
     return await this.ReplacementProgramRepository.save(replacementUpdated);

@@ -14,7 +14,7 @@ import {
 import { DiagnosisDto } from '../dto/diagnosisDto';
 import { ProblemBehaviorDto } from 'src/dto/problemBehavior.dto';
 import { BehaviorAnalysisCodeDto } from 'src/dto/behaviorAnalysisCodeDto';
-import { ReplacementProgramDto } from 'src/dto/replacementPrograms.dto';
+import { ReplacementProgramRead } from 'src/dto/replacementPrograms.dto';
 import { CLientDto } from 'src/dto/client.dto'
 import { CaregiverTypeDto } from 'src/dto/caregiverType.dto';
 
@@ -49,7 +49,7 @@ export const toBehaviorProblemDto = (
 
 export const toReplacementProgramDto = (
   data: ReplacementProgram,
-): ReplacementProgramDto => {
+): ReplacementProgramRead => {
   const { id, description, active } = data;
   return { id, description, active };
 };
