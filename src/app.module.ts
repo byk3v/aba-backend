@@ -4,10 +4,12 @@ import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { AuthController } from './controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule, RoleModule, DiagnosisModule } from './modules';
+import { UserModule, RoleModule, DiagnosisModule, BehaviorAnalysisCodesModule, BehaviorProblemsModule, ReplacementProgramModule } from './modules';
 import { AuthModule } from './auth/auth.module';
 
 let connectionOptions;
+let optionsSQL;
+
 connectionOptions = {
   type: 'postgres',
   entities: [__dirname + './**/**/*entity{.ts,.js}'],
@@ -33,13 +35,28 @@ if (process.env.DATABASE_URL) {
   };
 }
 
+optionsSQL = {
+  type: 'mysql',
+  host: 'localhost',
+  port: 3306,
+  username: 'root',
+  password: '',
+  database: 'aba-bd',
+  entities: [__dirname + './**/**/*entity{.ts,.js}'],
+  autoLoadEntities: true,
+  synchronize: true,
+};
+
 @Module({
   imports: [
     UserModule,
     RoleModule,
     AuthModule,
-    TypeOrmModule.forRoot(connectionOptions),
+    TypeOrmModule.forRoot(optionsSQL), //connectionOptions o optionsSQL
     DiagnosisModule,
+    BehaviorProblemsModule,
+    ReplacementProgramModule,
+    BehaviorAnalysisCodesModule,
   ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService], //UserService adentro me da bateo
