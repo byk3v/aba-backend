@@ -4,3 +4,4 @@ export * from './role.service';
 export * from './behaviorAnalysisCodes.service';
 export * from './behaviorProblems.service';
 export * from './replacementPrograms.service';
+export * from './client.service'; 

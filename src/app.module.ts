@@ -11,10 +11,12 @@ import {
   BehaviorAnalysisCodesModule,
   BehaviorProblemsModule,
   ReplacementProgramModule,
+  ClientsModule
 } from './modules';
 import { AuthModule } from './auth/auth.module';
 
 let connectionOptions;
+let optionsSQL;
 
 connectionOptions = {
   type: 'postgres',
@@ -42,7 +44,7 @@ if (process.env.DATABASE_URL) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const optionsSQL = {
+  optionsSQL = {
   type: 'mysql',
   host: 'localhost',
   port: 3306,
@@ -59,11 +61,12 @@ const optionsSQL = {
     UserModule,
     RoleModule,
     AuthModule,
-    TypeOrmModule.forRoot(connectionOptions), //connectionOptions o optionsSQL
+    TypeOrmModule.forRoot(optionsSQL), //connectionOptions o optionsSQL
     DiagnosisModule,
     BehaviorProblemsModule,
     ReplacementProgramModule,
     BehaviorAnalysisCodesModule,
+    ClientsModule,
   ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService], //UserService adentro me da bateo

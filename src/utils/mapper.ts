@@ -8,11 +8,13 @@ import {
   BehaviorAnalysisCodes,
   ReplacementProgram,
   BehaviorProblem,
+  Client
 } from '../domain/entity';
 import { DiagnosisDto } from '../dto/diagnosisDto';
 import { ProblemBehaviorDto } from 'src/dto/problemBehavior.dto';
 import { BehaviorAnalysisCodeDto } from 'src/dto/behaviorAnalysisCodeDto';
 import { ReplacementProgramDto } from 'src/dto/replacementPrograms.dto';
+import { CLientDto } from 'src/dto/client.dto'
 
 export const toUserDto = (data: User): UserDto => {
   const { id, username, email, refreshtoken, refreshtokenExpires } = data;
@@ -48,4 +50,11 @@ export const toReplacementProgramDto = (
 ): ReplacementProgramDto => {
   const { id, description, active } = data;
   return { id, description, active };
+};
+
+export const toClientDto = (
+  data: Client,
+): CLientDto => {
+  const { id, code, firstName, lastName, nickName, dob, phone, email, address, city, state, zipcode, gender, race, primaryLanguage, emergencyContact, emergencyPhone, emergencyEmail, notes, socialSecurity, insurance, memberNo, mmaPlan, mmaIdNo, active } = data;
+  return { id, code, firstName, lastName, nickName, dob, phone, email, address, city, state, zipcode, gender, race, primaryLanguage, emergencyContact, emergencyPhone, emergencyEmail, notes, socialSecurity, insurance, memberNo, mmaPlan, mmaIdNo, active };
 };

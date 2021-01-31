@@ -5,3 +5,4 @@ export * from './auth.controller';
 export * from './behaviorAnalysisCodes.controller';
 export * from './behaviorProblems.controller';
 export * from './replacementPrograms.controller';
+export * from './client.controller';
