@@ -1,4 +1,9 @@
-import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn,} from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('replacement-program')
 export class ReplacementProgram {
@@ -8,7 +13,7 @@ export class ReplacementProgram {
   @Column({ type: 'varchar', length: 80, nullable: false })
   description: string;
 
-  @Column({ type: 'varchar', nullable: false , default: 'ACTIVE' })
+  @Column({ type: 'varchar', nullable: false, default: 'ACTIVE' })
   active: string;
 
   @CreateDateColumn({ type: 'timestamp' })

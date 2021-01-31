@@ -8,7 +8,7 @@ import {
 @Entity('diagnosis')
 export class Diagnosis {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column({ type: 'varchar', nullable: false, unique: true })
   code: string;

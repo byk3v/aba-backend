@@ -1,13 +1,15 @@
-// import { IsString, IsEmail } from 'class-validator';
+import { IsString, IsEmail, IsArray } from 'class-validator';
 
-export interface CreateUserDto {
-  // @IsString()
+export class CreateUserDto {
+  @IsString()
   username: string;
 
+  @IsString()
   password: string;
 
-  // @IsEmail()
+  @IsEmail()
   email: string;
 
+  @IsArray()
   roles: string[];
 }

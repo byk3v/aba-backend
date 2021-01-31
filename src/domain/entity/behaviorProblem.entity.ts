@@ -1,4 +1,9 @@
-import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn,} from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('behavior-problem')
 export class BehaviorProblem {
@@ -8,7 +13,7 @@ export class BehaviorProblem {
   @Column({ type: 'varchar', nullable: false })
   description: string;
 
-  @Column({ type: 'varchar', nullable: false , default: 'ACTIVE' })
+  @Column({ type: 'varchar', nullable: false, default: 'ACTIVE' })
   active: string;
 
   @Column({ type: 'varchar', nullable: false })

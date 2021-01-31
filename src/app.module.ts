@@ -4,11 +4,17 @@ import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { AuthController } from './controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule, RoleModule, DiagnosisModule, BehaviorAnalysisCodesModule, BehaviorProblemsModule, ReplacementProgramModule } from './modules';
+import {
+  UserModule,
+  RoleModule,
+  DiagnosisModule,
+  BehaviorAnalysisCodesModule,
+  BehaviorProblemsModule,
+  ReplacementProgramModule,
+} from './modules';
 import { AuthModule } from './auth/auth.module';
 
 let connectionOptions;
-let optionsSQL;
 
 connectionOptions = {
   type: 'postgres',
@@ -35,7 +41,8 @@ if (process.env.DATABASE_URL) {
   };
 }
 
-optionsSQL = {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const optionsSQL = {
   type: 'mysql',
   host: 'localhost',
   port: 3306,
@@ -52,7 +59,7 @@ optionsSQL = {
     UserModule,
     RoleModule,
     AuthModule,
-    TypeOrmModule.forRoot(optionsSQL), //connectionOptions o optionsSQL
+    TypeOrmModule.forRoot(connectionOptions), //connectionOptions o optionsSQL
     DiagnosisModule,
     BehaviorProblemsModule,
     ReplacementProgramModule,

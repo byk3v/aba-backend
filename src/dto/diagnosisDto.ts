@@ -2,7 +2,7 @@ import { IsString, IsNotEmpty } from 'class-validator';
 
 export class DiagnosisDto {
   @IsNotEmpty()
-  id: number;
+  id: string;
 
   @IsNotEmpty()
   code: string;
