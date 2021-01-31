@@ -1,12 +1,9 @@
 import { IsString, IsNotEmpty } from 'class-validator';
 
-export class DiagnosisDto {
-  @IsNotEmpty()
-  id: string;
-
-  @IsNotEmpty()
-  code: string;
-
+export class CreateReplacementProgramDto {
   @IsString()
   description: string;
+
+  @IsString()
+  active: string;
 }

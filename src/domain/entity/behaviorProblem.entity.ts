@@ -5,19 +5,19 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('diagnosis')
-export class Diagnosis {
+@Entity('behavior-problem')
+export class BehaviorProblem {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @Column({ type: 'varchar', nullable: false, unique: true })
-  code: string;
 
   @Column({ type: 'varchar', nullable: false })
   description: string;
 
-  @Column({ type: 'varchar', length: 8, default: 'ACTIVE' })
-  status: string;
+  @Column({ type: 'varchar', nullable: false, default: 'ACTIVE' })
+  active: string;
+
+  @Column({ type: 'varchar', nullable: false })
+  isPercent: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
