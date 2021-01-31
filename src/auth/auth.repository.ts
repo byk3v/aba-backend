@@ -1,15 +1,15 @@
-/*import { Usuario } from "src/usuarios/entities/usuario.entity";
+/*import { User } from "src/usuarios/entities/usuario.entity";
 import { EntityRepository, Repository } from "typeorm";
 import { SignupDto } from "./dto";
 
-@EntityRepository(Usuario)
-export class AuthRepository extends Repository<Usuario> {
+@EntityRepository(User)
+export class AuthRepository extends Repository<User> {
 
     async signup(signupDto: SignupDto){
         const{username, email, password} = signupDto;
-        const user = new Usuario();
+        const user = new User();
         user.username = username;
         user.email = email;
-        user.password = 
+        user.password =
     }
 }*/

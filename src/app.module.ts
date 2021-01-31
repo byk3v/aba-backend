@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { AuthController } from './controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsuariosModule, RoleModule, DiagnosisModule } from './modules';
+import { UserModule, RoleModule, DiagnosisModule } from './modules';
 import { AuthModule } from './auth/auth.module';
 
 let connectionOptions;
@@ -35,13 +35,13 @@ if (process.env.DATABASE_URL) {
 
 @Module({
   imports: [
-    UsuariosModule,
+    UserModule,
     RoleModule,
     AuthModule,
     TypeOrmModule.forRoot(connectionOptions),
     DiagnosisModule,
   ],
   controllers: [AppController, AuthController],
-  providers: [AppService, AuthService], //UsuariosService adentro me da bateo
+  providers: [AppService, AuthService], //UserService adentro me da bateo
 })
 export class AppModule {}

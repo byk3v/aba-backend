@@ -1,4 +1,4 @@
-import { Usuario } from 'src/domain/entity/usuario.entity';
+import { User } from 'src/domain/entity/';
 import {
   Column,
   CreateDateColumn,
@@ -10,18 +10,18 @@ import {
 
 @Entity('roles')
 export class Role {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column({ type: 'varchar', length: 30, nullable: false, unique: true })
-  nombre: string;
+  name: string;
 
-  @Column({ type: 'varchar', length: 30, nullable: false })
-  descripcion: string;
+  @Column({ type: 'varchar', length: 30, nullable: true })
+  description: string;
 
-  @ManyToMany((type) => Usuario, (usuario) => usuario.roles)
+  @ManyToMany((type) => User, (user) => user.roles)
   @JoinTable({ name: 'user_roles' })
-  users: Usuario[];
+  users: User[];
 
   @Column({ type: 'varchar', length: 8, default: 'ACTIVE' })
   status: string;

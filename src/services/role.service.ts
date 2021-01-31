@@ -33,21 +33,22 @@ export class RoleService {
     //   relations: ['users'],
     //   where: { users: userId },
     // });
-
+    console.log('userId', userId);
     return await getConnection()
       .getRepository(Role)
       .createQueryBuilder('roles')
-      .select('roles.nombre')
-      .leftJoin('roles.users', 'usuarios')
-      .where('usuarios.id = :userId', { userId })
+      .select('roles.name')
+      .leftJoin('roles.users', 'users')
+      .where('users.id = :userId', { userId })
       .getMany();
   }
 
   async createRol(dto: CreateRolDto): Promise<RolDto> {
-    const { nombre, descripcion } = dto;
+    console.log(dto);
+    const { name, description } = dto;
 
     const rolInDb = await this.RoleRepository.findOne({
-      where: { nombre },
+      where: { name },
     });
 
     if (rolInDb) {
@@ -55,14 +56,14 @@ export class RoleService {
     }
 
     const role: Role = await this.RoleRepository.create({
-      nombre,
-      descripcion,
+      name,
+      description,
     });
     await this.RoleRepository.save(role);
     return toRolDto(role);
   }
 
-  async editRol(id: number, dto: CreateRolDto) {
+  async editRol(id: string, dto: CreateRolDto) {
     const rol = await this.RoleRepository.findOne(id);
     if (!rol) throw new NotFoundException(`Rol doesn't exist`);
 

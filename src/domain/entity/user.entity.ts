@@ -1,21 +1,17 @@
 import { Role } from 'src/domain/entity/role.entity';
 import * as bcrypt from 'bcrypt';
 import {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  BaseEntity,
   BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('usuarios')
-export class Usuario {
-  @PrimaryGeneratedColumn()
+@Entity('users')
+export class User {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ type: 'varchar', length: 30, nullable: false, unique: true })

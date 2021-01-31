@@ -37,17 +37,17 @@ export class DiagnosisController {
   }
 
   @Post()
-  crearDiagnosis(@Body() diagnosis: CreateDiagnosisDto) {
+  createDiagnosis(@Body() diagnosis: CreateDiagnosisDto) {
     return this.DiagnosisService.createDiagnosis(diagnosis);
   }
 
   @Put()
-  modificarDiagnosis(@Body() dto: DiagnosisDto) {
+  updateDiagnosis(@Body() dto: DiagnosisDto) {
     return this.DiagnosisService.editDiagnosis(dto);
   }
 
   @Delete()
-  eliminarDiagnosis(@Body() diagnosis: { id: number[] }) {
+  deleteDiagnosis(@Body() diagnosis: { id: number[] }) {
     return this.DiagnosisService.deleteDiagnosis(diagnosis.id);
   }
 }

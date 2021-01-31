@@ -1,19 +1,19 @@
-import { UsuarioDto } from 'src/dto/usuarioDto';
-import { Usuario } from '../domain/entity/usuario.entity';
+import { UserDto } from 'src/dto/userDto';
+import { User } from '../domain/entity';
 
 import { RolDto } from 'src/dto/rolDto';
-import { Role } from '../domain/entity/role.entity';
-import { Diagnosis } from '../domain/entity/diagnosis.entity';
+import { Role } from '../domain/entity';
+import { Diagnosis } from '../domain/entity';
 import { DiagnosisDto } from '../dto/diagnosisDto';
 
-export const toUserDto = (data: Usuario): UsuarioDto => {
+export const toUserDto = (data: User): UserDto => {
   const { id, username, email, refreshtoken, refreshtokenExpires } = data;
   return { id, username, email, refreshtoken, refreshtokenExpires };
 };
 
 export const toRolDto = (data: Role): RolDto => {
-  const { nombre, descripcion } = data;
-  return { nombre, descripcion };
+  const { name, description } = data;
+  return { name, description };
 };
 
 export const toDiagnosisDto = (data: Diagnosis): DiagnosisDto => {

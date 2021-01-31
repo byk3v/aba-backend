@@ -9,7 +9,7 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { RoleService } from '../services/role.service';
+import { RoleService } from '../services';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateRolDto } from '../dto/create-rol.dto';
 
@@ -33,17 +33,19 @@ export class RoleController {
   }
 
   @Post()
-  crearRol(@Body() rol: CreateRolDto) {
+  createRol(@Body() rol: CreateRolDto) {
+    console.log(rol);
     return this.RoleService.createRol(rol);
   }
 
   @Put(':id')
-  modificarRol(@Body() rol: CreateRolDto, @Param('id') id) {
+  updateRol(@Body() rol: CreateRolDto, @Param('id') id) {
+    console.log(rol);
     return this.RoleService.editRol(id, rol);
   }
 
   @Delete(':id')
-  eliminarRol(@Param('id') id) {
+  deleteRol(@Param('id') id) {
     return this.RoleService.deleteRol(id);
   }
 }

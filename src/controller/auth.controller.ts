@@ -8,8 +8,8 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { CreateUsuarioDto } from 'src/dto/create-usuario.dto';
-import { LoginUsuarioDto } from 'src/dto/loginUsuarioDto';
+import { CreateUserDto } from 'src/dto/create-usuario.dto';
+import { LoginUserDto } from 'src/dto/loginUserDto';
 import { AuthService } from '../auth/auth.service';
 import { LoginStatus } from '../auth/interfaces/login-status.interface';
 import { RegistrationStatus } from '../auth/interfaces/registration-status.interface';
@@ -24,7 +24,7 @@ export class AuthController {
 
   @Post('register')
   public async register(
-    @Body() createUserDto: CreateUsuarioDto,
+    @Body() createUserDto: CreateUserDto,
   ): Promise<RegistrationStatus> {
     const result: RegistrationStatus = await this.authService.register(
       createUserDto,
@@ -38,9 +38,7 @@ export class AuthController {
   }
 
   @Post('login')
-  public async login(
-    @Body() loginUserDto: LoginUsuarioDto,
-  ): Promise<LoginStatus> {
+  public async login(@Body() loginUserDto: LoginUserDto): Promise<LoginStatus> {
     return await this.authService.login(loginUserDto);
   }
 

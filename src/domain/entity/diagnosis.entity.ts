@@ -7,7 +7,7 @@ import {
 
 @Entity('diagnosis')
 export class Diagnosis {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column({ type: 'varchar', nullable: false, unique: true })

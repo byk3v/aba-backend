@@ -1,3 +1,3 @@
 export * from './diagnosis.service';
-export * from './usuarios.service';
+export * from './user.service';
 export * from './role.service';

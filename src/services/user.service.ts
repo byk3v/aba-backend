@@ -6,36 +6,36 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { getConnection, Repository } from 'typeorm';
-import { CreateUsuarioDto } from '../dto/create-usuario.dto';
-import { Usuario } from '../domain/entity';
-import { UsuarioDto } from '../dto/usuarioDto';
+import { CreateUserDto } from '../dto/create-usuario.dto';
+import { User } from '../domain/entity';
+import { UserDto } from '../dto/userDto';
 import { toUserDto } from '../utils/mapper';
-import { LoginUsuarioDto } from '../dto/loginUsuarioDto';
+import { LoginUserDto } from '../dto/loginUserDto';
 import { comparePasswords } from '../utils/utils';
 import { Role } from '../domain/entity';
 import { RoleRepository } from '../domain/repository';
 
 @Injectable()
-export class UsuariosService {
+export class UserService {
   constructor(
-    @InjectRepository(Usuario)
-    private readonly UsuarioRepository: Repository<Usuario> /*@InjectRepository(Role)
+    @InjectRepository(User)
+    private readonly UserRepository: Repository<User> /*@InjectRepository(Role)
         private readonly RoleRepository: Repository<Role>
         )*/,
   ) {}
 
-  async getUsuarios(): Promise<Usuario[]> {
-    return await this.UsuarioRepository.find();
+  async getUser(): Promise<User[]> {
+    return await this.UserRepository.find();
   }
 
   async getbyId(id: number) {
-    const usuario = await this.UsuarioRepository.findOne(id);
-    if (!usuario) throw new NotFoundException('El Usuario no existe');
+    const usuario = await this.UserRepository.findOne(id);
+    if (!usuario) throw new NotFoundException('El User no existe');
     return usuario;
   }
 
-  async findOne(options?: Record<string, unknown>): Promise<UsuarioDto> {
-    const user = await this.UsuarioRepository.findOne(options);
+  async findOne(options?: Record<string, unknown>): Promise<UserDto> {
+    const user = await this.UserRepository.findOne(options);
     return toUserDto(user);
   }
 
@@ -44,17 +44,14 @@ export class UsuariosService {
     id: string,
     refreshtokenExpires,
   ) {
-    await this.UsuarioRepository.update(id, {
+    await this.UserRepository.update(id, {
       refreshtoken: refreshToken,
       refreshtokenExpires,
     });
   }
 
-  async findByLogin({
-    username,
-    password,
-  }: LoginUsuarioDto): Promise<UsuarioDto> {
-    const user = await this.UsuarioRepository.findOne({ where: { username } });
+  async findByLogin({ username, password }: LoginUserDto): Promise<UserDto> {
+    const user = await this.UserRepository.findOne({ where: { username } });
     if (!user) {
       throw new HttpException('User not found', HttpStatus.UNAUTHORIZED);
     }
@@ -68,23 +65,23 @@ export class UsuariosService {
     return user;
   }
 
-  async findByPayload({ username }: any): Promise<UsuarioDto> {
+  async findByPayload({ username }: any): Promise<UserDto> {
     return await this.findOne({
       where: { username },
     });
   }
 
-  async createUsuario(dto: CreateUsuarioDto): Promise<UsuarioDto> {
+  async createUser(dto: CreateUserDto): Promise<UserDto> {
     const { username, password, email, roles } = dto;
-    const rolesArray: Role[] = [];
-    const userInDb = await this.UsuarioRepository.findOne({
+
+    const userInDb = await this.UserRepository.findOne({
       where: { username },
     });
 
     if (userInDb) {
       throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
     }
-    const user: Usuario = await this.UsuarioRepository.create({
+    const user: User = await this.UserRepository.create({
       username,
       password,
       email,
@@ -97,20 +94,20 @@ export class UsuariosService {
 
       user.roles = await roleRepository.findByIds(roles);
     }
-    await this.UsuarioRepository.save(user);
+    await this.UserRepository.save(user);
     return toUserDto(user);
   }
 
-  async editUsuario(id: number, dto: CreateUsuarioDto) {
+  async editUser(id: number, dto: CreateUserDto) {
     // Hacer un DTO para el modificar con los partial
-    const usuario = await this.UsuarioRepository.findOne(id);
-    if (!usuario) throw new NotFoundException('El Usuario no existe');
+    const usuario = await this.UserRepository.findOne(id);
+    if (!usuario) throw new NotFoundException('El User no existe');
 
     const userUpdated = Object.assign(usuario, dto);
-    return await this.UsuarioRepository.save(userUpdated);
+    return await this.UserRepository.save(userUpdated);
   }
 
-  async deleteUsuario(id: number) {
-    return await this.UsuarioRepository.delete(id);
+  async deleteUser(id: number) {
+    return await this.UserRepository.delete(id);
   }
 }
