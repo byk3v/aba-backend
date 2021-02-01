@@ -43,8 +43,8 @@ if (process.env.DATABASE_URL) {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-  optionsSQL = {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars,prefer-const
+optionsSQL = {
   type: 'mysql',
   host: 'localhost',
   port: 3306,
@@ -61,7 +61,7 @@ if (process.env.DATABASE_URL) {
     UserModule,
     RoleModule,
     AuthModule,
-    TypeOrmModule.forRoot(optionsSQL), //connectionOptions o optionsSQL
+    TypeOrmModule.forRoot(connectionOptions), //connectionOptions o optionsSQL
     DiagnosisModule,
     BehaviorProblemsModule,
     ReplacementProgramModule,

@@ -41,8 +41,8 @@ export const toBehaviorAnalysisCodesDto = (
 export const toBehaviorProblemDto = (
   data: BehaviorProblem,
 ): ProblemBehaviorDto => {
-  const { id, description, active, isPercent } = data;
-  return { id, description, active, isPercent };
+  const { id, description, isPercent } = data;
+  return { id, description, isPercent };
 };
 
 export const toReplacementProgramDto = (

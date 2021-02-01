@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsBoolean } from "class-validator";
 
 export class ProblemBehaviorDto {
   @IsNotEmpty()
@@ -7,9 +7,6 @@ export class ProblemBehaviorDto {
   @IsString()
   description: string;
 
-  @IsString()
-  active: string;
-
-  @IsString()
-  isPercent: string;
+  @IsBoolean()
+  isPercent: boolean;
 }

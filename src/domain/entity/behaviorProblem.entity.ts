@@ -16,8 +16,8 @@ export class BehaviorProblem {
   @Column({ type: 'varchar', nullable: false, default: 'ACTIVE' })
   active: string;
 
-  @Column({ type: 'varchar', nullable: false })
-  isPercent: string;
+  @Column({ type: 'boolean', nullable: false })
+  isPercent: boolean;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;

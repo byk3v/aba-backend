@@ -13,6 +13,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { BehaviorProblemsService } from '../services';
 import { CreateProblemBehaviorDto } from '../dto/create-problemBehavior.dto';
 import { ProblemBehaviorDto } from '../dto/problemBehavior.dto';
+import { SetActiveDto } from "../dto/set-active.dto";
 
 @Controller('behavior-problems')
 export class BehaviorProblemsController {
@@ -46,13 +47,18 @@ export class BehaviorProblemsController {
     return this.BehaviorPService.createBehaviorProblem(BehaviorAC);
   }
 
-  @Put(':id')
+  @Post('setActive')
+  setActive(@Body() dataActive: SetActiveDto) {
+    return this.BehaviorPService.setActive(dataActive);
+  }
+
+  @Put()
   updateBehaviorP(@Body() dto: ProblemBehaviorDto, @Param('id') id) {
     return this.BehaviorPService.editBehaviorProblem(dto, id);
   }
 
-  @Delete(':id')
-  deleteBehaviorP(@Param('id') id) {
-    return this.BehaviorPService.deleteBehaviorProblem(id);
+  @Delete()
+  deleteBehaviorP(@Body() diagnosis: { id: number[] }) {
+    return this.BehaviorPService.deleteBehaviorProblem(diagnosis.id);
   }
 }
