@@ -16,8 +16,8 @@ export class BehaviorAnalysisCodes {
   @Column({ type: 'varchar', nullable: false })
   description: string;
 
-  @Column({ type: 'varchar', length: 8, default: 'ACTIVE' })
-  checkable: string;
+  @Column({ type: 'varchar', default: 'ACTIVE' })
+  active: string;
 
   @Column({ type: 'varchar', nullable: false })
   color: string;

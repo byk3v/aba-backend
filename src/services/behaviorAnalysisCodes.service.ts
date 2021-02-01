@@ -5,6 +5,7 @@ import {HttpException, HttpStatus,Injectable,NotFoundException,} from '@nestjs/c
   import { CreateBehaviorAnalysisCodeDto } from '../dto/create-behaviorAnalysisCode.dto';
   import { BehaviorAnalysisCodeDto } from '../dto/behaviorAnalysisCodeDto';
   import { toBehaviorAnalysisCodesDto } from '../utils/mapper';
+import { SetActiveDto } from "../dto/set-active.dto";
 
 @Injectable()
 export class BehaviorAnalysisCodesService {
@@ -35,7 +36,7 @@ export class BehaviorAnalysisCodesService {
   }
 
   async createDiagnosis(dto: CreateBehaviorAnalysisCodeDto): Promise<BehaviorAnalysisCodeDto> {
-    const { hcpcs, description, checkable, color } = dto;
+    const { hcpcs, description, color } = dto;
 
     const behaviorACInDb = await this.BehaviorAnalysisCodesRepository.findOne({
       where: { hcpcs },
@@ -48,9 +49,14 @@ export class BehaviorAnalysisCodesService {
       );
     }
 
-    const behaviorAC: BehaviorAnalysisCodes = await this.BehaviorAnalysisCodesRepository.create({hcpcs, description, checkable, color});
+    const behaviorAC: BehaviorAnalysisCodes = await this.BehaviorAnalysisCodesRepository.create({hcpcs, description, color});
     await this.BehaviorAnalysisCodesRepository.save(behaviorAC);
     return toBehaviorAnalysisCodesDto(behaviorAC);
+  }
+
+  async setActive(dataActive:SetActiveDto) {
+    const { id, active } = dataActive;
+    return await this.BehaviorAnalysisCodesRepository.update(id, { active:active });
   }
 
   async editBehaviorAnalysisCode(dto: BehaviorAnalysisCodeDto) {

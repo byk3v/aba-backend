@@ -34,8 +34,8 @@ export const toDiagnosisDto = (data: Diagnosis): DiagnosisDto => {
 export const toBehaviorAnalysisCodesDto = (
   data: BehaviorAnalysisCodes,
 ): BehaviorAnalysisCodeDto => {
-  const { id, hcpcs, description, checkable, color } = data;
-  return { id, hcpcs, description, checkable, color };
+  const { id, hcpcs, description, color } = data;
+  return { id, hcpcs, description, color };
 };
 
 export const toBehaviorProblemDto = (

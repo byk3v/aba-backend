@@ -10,8 +10,6 @@ export class BehaviorAnalysisCodeDto {
   @IsString()
   description: string;
 
-  @IsString()
-  checkable: string;
 
   @IsString()
   color: string;

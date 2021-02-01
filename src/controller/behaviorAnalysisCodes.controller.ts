@@ -14,6 +14,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { BehaviorAnalysisCodesService } from '../services';
 import { CreateBehaviorAnalysisCodeDto } from '../dto/create-behaviorAnalysisCode.dto';
 import { BehaviorAnalysisCodeDto } from '../dto/behaviorAnalysisCodeDto';
+import { SetActiveDto } from "../dto/set-active.dto";
 
 @Controller('behavior-analysis-codes')
 export class BehaviorAnalysisCodesController {
@@ -49,6 +50,11 @@ export class BehaviorAnalysisCodesController {
   @Post()
   createBehaviorAC(@Body() BehaviorAC: CreateBehaviorAnalysisCodeDto) {
     return this.BehaviorACService.createDiagnosis(BehaviorAC);
+  }
+
+  @Post('setActive')
+  setActive(@Body() dataActive: SetActiveDto) {
+    return this.BehaviorACService.setActive(dataActive);
   }
 
   @Put()

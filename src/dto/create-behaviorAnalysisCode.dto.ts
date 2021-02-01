@@ -7,8 +7,6 @@ export class CreateBehaviorAnalysisCodeDto {
   @IsString()
   description: string;
 
-  @IsString()
-  checkable: string;
 
   @IsString()
   color: string;
