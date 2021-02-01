@@ -1,7 +1,7 @@
 import { Role } from 'src/domain/entity/role.entity';
 import * as bcrypt from 'bcrypt';
 import {
-  BeforeInsert,
+  BeforeInsert, BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
@@ -41,6 +41,7 @@ export class User {
   createdAt: Date;
 
   @BeforeInsert()
+  @BeforeUpdate()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 10);
   }
