@@ -80,7 +80,7 @@ export class Client {
   @Column({ type: 'varchar', length: 50 })
   mmaIdNo: string;
 
-  @Column({ type: 'boolean', nullable: false })
+  @Column({ type: 'boolean', nullable: false, default: true })
   active: boolean;
 
   @CreateDateColumn({ type: 'timestamp' })
