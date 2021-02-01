@@ -5,7 +5,7 @@ import { AppModule } from './app.module';
 import {initSwagger} from './app.swagger'
 
 dotenv.config();
-const PORT = process.env.PORT || 3010; // asi funciona heroku
+const PORT = process.env.PORT || 3001; // asi funciona heroku
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
@@ -22,7 +22,7 @@ async function bootstrap() {
         whitelist: true,
       }
     ),
-  ); 
+  );
   await app.listen(PORT);
 }
 bootstrap();

@@ -1,4 +1,10 @@
-import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn,} from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('client')
 export class Client {
@@ -47,13 +53,13 @@ export class Client {
   @Column({ type: 'varchar', length: 20 })
   primaryLanguage: string;
 
-  @Column({ type: 'varchar', length: 150})
+  @Column({ type: 'varchar', length: 150 })
   emergencyContact: string;
 
   @Column({ type: 'varchar', length: 15 })
   emergencyPhone: string;
 
-  @Column({ type: 'varchar', length: 60})
+  @Column({ type: 'varchar', length: 60 })
   emergencyEmail: string;
 
   @Column({ type: 'varchar' })

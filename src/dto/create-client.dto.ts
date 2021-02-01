@@ -12,15 +12,15 @@ export class CreateCLientDto {
   @IsNotEmpty()
   lastName: string;
 
-  //@IsString()
+  @IsString()
   nickName: string;
 
   dob: Date;
 
-  //@IsString()
+  @IsString()
   phone: string;
 
-  //@IsString()
+  @IsString()
   email: string;
 
   @IsString()
@@ -39,42 +39,41 @@ export class CreateCLientDto {
   @IsNotEmpty()
   zipcode: string;
 
-  //@IsString()
+  @IsString()
   gender: string;
 
-  //@IsString()
+  @IsString()
   race: string;
 
-  //@IsString()
+  @IsString()
   primaryLanguage: string;
 
-  //@IsString()
+  @IsString()
   emergencyContact: string;
 
-  //@IsString()
+  @IsString()
   emergencyPhone: string;
 
-  //@IsString()
+  @IsString()
   emergencyEmail: string;
 
-  //@IsString()
+  @IsString()
   notes: string;
 
-  //@IsString()
+  @IsString()
   socialSecurity: string;
 
   @IsString()
   insurance: string;
 
-  //@IsString()
+  @IsString()
   memberNo: string;
 
-  //@IsString()
+  @IsString()
   mmaPlan: string;
 
-  //@IsString()
+  @IsString()
   mmaIdNo: string;
 
-  @IsNotEmpty()
   active: boolean;
 }
