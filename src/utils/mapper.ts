@@ -9,14 +9,16 @@ import {
   ReplacementProgram,
   BehaviorProblem,
   Client,
-  CaregiversType
+  CaregiversType,
+  CompetencyCheckParams
 } from '../domain/entity';
 import { DiagnosisDto } from '../dto/diagnosisDto';
 import { ProblemBehaviorDto } from 'src/dto/problemBehavior.dto';
 import { BehaviorAnalysisCodeDto } from 'src/dto/behaviorAnalysisCodeDto';
 import { ReplacementProgramRead } from 'src/dto/replacementPrograms.dto';
-import { CLientDto } from 'src/dto/client.dto'
+import { CLientDto } from 'src/dto/client.dto';
 import { CaregiverTypeDto } from 'src/dto/caregiverType.dto';
+import { CompetencyCheckParamsDto } from 'src/dto/competencyCheckParams.dto';
 
 export const toUserDto = (data: User): UserDto => {
   const { id, username, email, refreshtoken, refreshtokenExpires } = data;
@@ -66,4 +68,11 @@ export const toCaregiverTypeDto = (
 ): CaregiverTypeDto => {
   const { id, description } = data;
   return { id, description };
+};
+
+export const toCompetencyCheckParamDto = (
+  data: CompetencyCheckParams,
+): CompetencyCheckParamsDto => {
+  const { id, competencyCheckType, description, comment } = data;
+  return { id, competencyCheckType, description, comment };
 };

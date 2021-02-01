@@ -6,3 +6,4 @@ export * from './behaviorProblems.service';
 export * from './replacementPrograms.service';
 export * from './client.service'; 
 export * from './caregiversType.service';
+export * from './competencyCheckParams.service';

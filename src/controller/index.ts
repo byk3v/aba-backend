@@ -6,4 +6,5 @@ export * from './behaviorAnalysisCodes.controller';
 export * from './behaviorProblems.controller';
 export * from './replacementPrograms.controller';
 export * from './client.controller';
-export * from './caregiversType.controller'
+export * from './caregiversType.controller';
+export * from './competencyCheckParams.controller';
