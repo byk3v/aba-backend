@@ -78,6 +78,5 @@ export class CLientDto {
   //@IsString()
   mmaIdNo: string;
 
-  @IsNotEmpty()
   active: boolean;
 }
