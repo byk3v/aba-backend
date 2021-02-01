@@ -11,7 +11,9 @@ import {
   BehaviorAnalysisCodesModule,
   BehaviorProblemsModule,
   ReplacementProgramModule,
-  ClientsModule
+  ClientsModule,
+  CaregiverTypesModule,
+  CompetencyCheckParamsModule
 } from './modules';
 import { AuthModule } from './auth/auth.module';
 
@@ -67,6 +69,8 @@ optionsSQL = {
     ReplacementProgramModule,
     BehaviorAnalysisCodesModule,
     ClientsModule,
+    CaregiverTypesModule,
+    CompetencyCheckParamsModule
   ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService], //UserService adentro me da bateo

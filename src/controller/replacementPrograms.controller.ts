@@ -12,8 +12,7 @@ import {
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ReplacementProgramService } from '../services';
-import { CreateReplacementProgramDto } from '../dto/create-replacementPrograms.dto';
-import { ReplacementProgramDto } from '../dto/replacementPrograms.dto';
+import { ReplacementProgramDto, ReplacementProgramRead } from '../dto/replacementPrograms.dto';
 
 @Controller('replacement-programs')
 export class ReplacementProgramController {
@@ -43,12 +42,12 @@ export class ReplacementProgramController {
   }
 
   @Post()
-  createReplacementProgram(@Body() ReplacementP: CreateReplacementProgramDto) {
+  createReplacementProgram(@Body() ReplacementP: ReplacementProgramDto) {
     return this.replacementsService.createReplacementPrograms(ReplacementP);
   }
 
   @Put()
-  updateReplacementProgram(@Body() dto: ReplacementProgramDto) {
+  updateReplacementProgram(@Body() dto: ReplacementProgramRead) {
     return this.replacementsService.editReplacementProgram(dto);
   }
 

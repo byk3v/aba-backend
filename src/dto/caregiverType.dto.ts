@@ -1,9 +1,9 @@
 import { IsString, IsNotEmpty } from 'class-validator';
 
-export class CreateReplacementProgramDto {
+export class CaregiverTypeDto {
+  @IsNotEmpty()
+  id: string;  
+  
   @IsString()
   description: string;
-
-  @IsString()
-  active: string;
 }

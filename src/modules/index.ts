@@ -4,4 +4,6 @@ export * from './role.module';
 export * from './behaviorAnalysisCodes.module';
 export * from './behaviorProblems.module';
 export * from './replacementPrograms.module';
-export * from './clients.module'
+export * from './clients.module';
+export * from './caregiverTypes.module';
+export * from './competencyCheckParams.module';
