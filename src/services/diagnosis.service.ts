@@ -10,6 +10,7 @@ import { Diagnosis } from '../domain/entity';
 import { CreateDiagnosisDto } from '../dto/create-diagnosis.dto';
 import { DiagnosisDto } from '../dto/diagnosisDto';
 import { toDiagnosisDto } from '../utils/mapper';
+import { SetActiveDto } from "../dto/set-active.dto";
 
 @Injectable()
 export class DiagnosisService {
@@ -59,6 +60,11 @@ export class DiagnosisService {
     });
     await this.DiagnosisRepository.save(diagnosis);
     return toDiagnosisDto(diagnosis);
+  }
+
+  async setActive(dataActive:SetActiveDto) {
+    const { id, active } = dataActive;
+    return await this.DiagnosisRepository.update(id, { active:active });
   }
 
   async editDiagnosis(dto: DiagnosisDto) {

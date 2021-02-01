@@ -16,8 +16,8 @@ export class Diagnosis {
   @Column({ type: 'varchar', nullable: false })
   description: string;
 
-  @Column({ type: 'varchar', length: 8, default: 'ACTIVE' })
-  status: string;
+  @Column({ type: 'varchar', default: 'ACTIVE' })
+  active: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
