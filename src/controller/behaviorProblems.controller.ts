@@ -53,8 +53,8 @@ export class BehaviorProblemsController {
   }
 
   @Put()
-  updateBehaviorP(@Body() dto: ProblemBehaviorDto, @Param('id') id) {
-    return this.BehaviorPService.editBehaviorProblem(dto, id);
+  updateBehaviorP(@Body() dto: ProblemBehaviorDto) {
+    return this.BehaviorPService.editBehaviorProblem(dto);
   }
 
   @Delete()

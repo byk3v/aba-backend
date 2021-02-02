@@ -53,8 +53,8 @@ export class BehaviorProblemsService {
     return toBehaviorProblemDto(behaviorProblem);
   }
 
-  async editBehaviorProblem(dto: ProblemBehaviorDto, id: number) {
-    const behaviorP = await this.BehaviorProblemRepository.findOne(id);
+  async editBehaviorProblem(dto: ProblemBehaviorDto) {console.log(dto)
+    const behaviorP = await this.BehaviorProblemRepository.findOne(dto.id);
     if (!behaviorP) throw new NotFoundException(`Behavior Problem doesn't exist`);
 
     const behaviorUpdated = Object.assign(behaviorP, dto);

@@ -10,7 +10,7 @@ import {
   BehaviorProblem,
   Client,
   CaregiversType,
-  CompetencyCheckParams
+  CompetencyCheckParams,
 } from '../domain/entity';
 import { DiagnosisDto } from '../dto/diagnosisDto';
 import { ProblemBehaviorDto } from 'src/dto/problemBehavior.dto';
@@ -56,16 +56,64 @@ export const toReplacementProgramDto = (
   return { id, description, active };
 };
 
-export const toClientDto = (
-  data: Client,
-): CLientDto => {
-  const { id, code, firstName, lastName, nickName, dob, phone, email, address, city, state, zipcode, gender, race, primaryLanguage, emergencyContact, emergencyPhone, emergencyEmail, notes, socialSecurity, insurance, memberNo, mmaPlan, mmaIdNo, active } = data;
-  return { id, code, firstName, lastName, nickName, dob, phone, email, address, city, state, zipcode, gender, race, primaryLanguage, emergencyContact, emergencyPhone, emergencyEmail, notes, socialSecurity, insurance, memberNo, mmaPlan, mmaIdNo, active };
+export const toClientDto = (data: Client): CLientDto => {
+  const {
+    id,
+    code,
+    firstName,
+    lastName,
+    nickName,
+    dob,
+    phone,
+    email,
+    address,
+    city,
+    state,
+    zipcode,
+    gender,
+    race,
+    primaryLanguage,
+    emergencyContact,
+    emergencyPhone,
+    emergencyEmail,
+    notes,
+    socialSecurity,
+    insurance,
+    memberNo,
+    mmaPlan,
+    mmaIdNo,
+    active,
+  } = data;
+  return {
+    id,
+    code,
+    firstName,
+    lastName,
+    nickName,
+    dob,
+    phone,
+    email,
+    address,
+    city,
+    state,
+    zipcode,
+    gender,
+    race,
+    primaryLanguage,
+    emergencyContact,
+    emergencyPhone,
+    emergencyEmail,
+    notes,
+    socialSecurity,
+    insurance,
+    memberNo,
+    mmaPlan,
+    mmaIdNo,
+    active,
+  };
 };
 
-export const toCaregiverTypeDto = (
-  data: CaregiversType,
-): CaregiverTypeDto => {
+export const toCaregiverTypeDto = (data: CaregiversType): CaregiverTypeDto => {
   const { id, description } = data;
   return { id, description };
 };
